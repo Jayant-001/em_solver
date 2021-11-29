@@ -16,22 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
-<<<<<<< HEAD
+
 from engg_maths import views as view_math
 
-=======
 from engg_maths import views as view_mh
->>>>>>> 688c50e2603e8b02c023b25185b8db9222434a10
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
     path('math/', views.math, name='math'),
     path('dstl/', views.dstl, name='dstl'),
     path('test/', views.test),
-<<<<<<< HEAD
     
-=======
+    
+    
     path('inp',view_mh.fetchfunc),
->>>>>>> 688c50e2603e8b02c023b25185b8db9222434a10
+    
 
 ]
