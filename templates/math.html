@@ -10,9 +10,9 @@
 
     <h2>Mapping the curve</h2>
     
-    <div id="input_form">
+    <div id="input_form" >
         
-    <form action="/action_page.php">
+    <form action="/inp" method="post"> {% csrf_token %}
         <label for="fname">Values of X: </label>
         <input type="text" id="fname" placeholder="1 2 3 4 5" name="xname"><br><br>
         <label for="lname">Values of Y: </label>
