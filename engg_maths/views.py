@@ -7,4 +7,9 @@ def fetchfunc(req):
     x_lst=list(map(int,x.split()))
     y_lst=list(map(int,y.split()))
     a=b=0
-    return a,b;
+
+    print(x_lst)
+    print(y_lst)
+
+
+    return a,b
