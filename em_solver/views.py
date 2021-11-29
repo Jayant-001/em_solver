@@ -11,5 +11,5 @@ def dstl(req) :
     return render(req, 'dstl.html')
 
 def test(req) :
-    return render(req, 'test.html')
+    return render(req, 'test.html', {'name':'/test'})
 
