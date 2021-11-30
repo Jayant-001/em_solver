@@ -17,10 +17,7 @@ def fetchfunc(request):
     print(A,B)
     out_sol=[A,B]
 
-    context = {
-        'value_of_a' : A,
-        'value_of_b' : B,
-    }
+    context = {'value_of_a' : A,'value_of_b' : B}
 
     return render('solution.html', context)
 
