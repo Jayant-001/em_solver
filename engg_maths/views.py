@@ -1,24 +1,35 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import numpy as np
+from sympy import symbols, Eq, solve
 # Create your views here.
 
-def fetchfunc(req):
-    x=req.POST.get('xname','error')
-    y=req.POST.get('yname','error')
-    x_lst=list(map(int,x.split()))
-    y_lst=list(map(int,y.split()))
-    a=b=0
-
-    print(x_lst)
-    print(y_lst)
-
-
-    return a,b
-
 def fetchfunc(request):
-    x=request.POST['xname']
-    y=request.POST['yname']
-    # x_lst=list(map(int,x.split()))
-    # y_lst=list(map(int,y.split()))
-    print(x,y)
-    return HttpResponse("<h1>hello</h1>")
+    h=request.POST['xname']
+    k=request.POST['yname']
+    x_lst=list(map(float,h.split()))
+    y_lst=list(map(float,k.split()))
+    soln=calci(x_lst,y_lst)
+    print(soln)
+    a,b=soln.keys()
+    A=round(soln[a],4)
+    B=round(soln[b],4)
+    print(A,B)
+    out_sol=[A,B]
+    return HttpResponse(out_sol)
+
+def calci(X,Y):
+    X_2=list(map(lambda h: h ** 2, X))
+    A=np.array(X,dtype=float)
+    B=np.array(Y,dtype=float)
+    X_Y=A*B
+    sum_x=sum(X)
+    sum_y=sum(Y)
+    sum_x2=sum(X_2)
+    sum_xy=sum(X_Y)
+    n=len(X)
+    x,y = symbols('x y')
+    eq1=Eq(n*x + sum_x*y - sum_y)
+    eq2=Eq(sum_x*x + sum_x2*y - sum_xy)
+    dic=solve((eq1,eq2), (x,y))
+    return dic

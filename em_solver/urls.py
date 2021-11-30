@@ -27,9 +27,6 @@ urlpatterns = [
     path('math/', views.math, name='math'),
     path('dstl/', views.dstl, name='dstl'),
     path('test/', views.test),
-    
-    
-    
     path('inp',view_mh.fetchfunc),
     
 
