@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
-from engg_maths import views as view_math
+# from engg_maths import views as view_math
 
 from engg_maths import views as view_mh
 
@@ -28,6 +28,7 @@ urlpatterns = [
     path('dstl/', views.dstl, name='dstl'),
     path('test/', views.test),
     path('inp/', view_mh.fetchfunc),
-    
+    # path('solution/',view_mh.solution, name='solution'),
+
 
 ]
