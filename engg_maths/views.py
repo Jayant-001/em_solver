@@ -22,7 +22,7 @@ def fetchfunc(request):
         'value_of_b' : B,
     }
 
-    return render('solution.html', context)
+    return render(request, 'solution.html', context)
 
 def calci(X,Y):
     X_2=list(map(lambda h: h ** 2, X))
