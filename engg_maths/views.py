@@ -16,7 +16,13 @@ def fetchfunc(request):
     B=round(soln[b],4)
     print(A,B)
     out_sol=[A,B]
-    return HttpResponse(out_sol)
+
+    context = {
+        'value_of_a' : A,
+        'value_of_b' : B,
+    }
+
+    return render('solution.html', context)
 
 def calci(X,Y):
     X_2=list(map(lambda h: h ** 2, X))
@@ -33,3 +39,4 @@ def calci(X,Y):
     eq2=Eq(sum_x*x + sum_x2*y - sum_xy)
     dic=solve((eq1,eq2), (x,y))
     return dic
+
