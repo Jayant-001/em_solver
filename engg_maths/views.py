@@ -4,11 +4,10 @@ from django.http import HttpResponse
 import numpy as np
 from sympy import symbols, Eq, solve
 from engg_maths.models import MathData
-import ast
 
 # Create your views here.
 
-
+contest={}
 
 def fetchfunc(request):
     h = request.POST['xname']
@@ -35,22 +34,6 @@ def fetchfunc(request):
         lst = [sum(x_lst), sum(y_lst), sum(x2_lst), sum(xy_lst)]
         master_lst.append(lst)
         context['tab'] = master_lst
-        # data = MathData.objects.all()
-        # for d in data:
-        #     X=ast.literal_eval(d.x_list)
-        #     Y=ast.literal_eval(d.y_list)
-        #     X2=ast.literal_eval(d.x2_list)
-        #     XY=ast.literal_eval(d.xy_list)
-        #     # print(d.x_list)
-        #     # print(d.y_list)
-        #     # print(d.x2_list)
-        #     # print(d.xy_list)
-        #     print("-----------------------")
-
-        # math_data = MathData(x_list=x_lst, y_list=y_lst,
-        #                      x2_list=x2_lst, xy_list=xy_lst)
-        # math_data.save()
-
     elif(ch == "2"):
         soln,x2_lst,x3_lst,x4_lst,xy_lst,x2y_lst= parabola(x_lst, y_lst)
         a, b, c = soln.keys()
@@ -94,6 +77,21 @@ def fetchfunc(request):
         context['tab'] = master_lst
     print(soln)
     return render(request, 'solution.html', context)
+        # data = MathData.objects.all()
+        # for d in data:
+        #     X=ast.literal_eval(d.x_list)
+        #     Y=ast.literal_eval(d.y_list)
+        #     X2=ast.literal_eval(d.x2_list)
+        #     XY=ast.literal_eval(d.xy_list)
+        #     # print(d.x_list)
+        #     # print(d.y_list)
+        #     # print(d.x2_list)
+        #     # print(d.xy_list)
+        #     print("-----------------------")
+
+        # math_data = MathData(x_list=x_lst, y_list=y_lst,
+        #                      x2_list=x2_lst, xy_list=xy_lst)
+        # math_data.save()
 
 
 def straight(X, Y):
@@ -155,3 +153,14 @@ def exp(X,Y):
     eq2 = Eq(sum_x*x + sum_x2*y - sum_xy)
     dic = solve((eq1, eq2), (x, y))
     return dic, y,x2,xy;
+
+def testf(request):
+    if (request.method=="POST"):
+        xval=request.POST.get('xname')
+        yval=request.POST.get('yname')
+        eqval=request.POST.get('inputData')
+        print(xval,yval,eqval)
+        success="Successfull"
+        return HttpResponse(success)
+# def testh(request):
+#     return render(request,'test.html')
