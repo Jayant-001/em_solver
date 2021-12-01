@@ -1,3 +1,4 @@
+from math import log10
 from django.shortcuts import render
 from django.http import HttpResponse
 import numpy as np
@@ -50,9 +51,9 @@ def fetchfunc(request):
         #     # print(d.xy_list)
         #     print("-----------------------")
 
-        math_data = MathData(x_list=x_lst, y_list=y_lst,
-                             x2_list=x2_lst, xy_list=xy_lst)
-        math_data.save()
+        # math_data = MathData(x_list=x_lst, y_list=y_lst,
+        #                      x2_list=x2_lst, xy_list=xy_lst)
+        # math_data.save()
 
     elif(ch == 2):
         soln = parabola(x_lst, y_lst)
@@ -109,4 +110,15 @@ def parabola(X, Y):
     return dic
 
 
-x = [[1, 1, 2, 3], [1, 2, 3, 2], [3, 2, 1, 2]]
+def exp(X,Y):
+    y=list(map(lambda h: log10(h),Y))
+    
+    # x2 = list(map(lambda h: h ** 2, X))
+    # A = np.array(X, dtype=float)
+    # B = np.array(y, dtype=float)
+    # C = A*A
+    # xy = A*B
+    # sum_x = sum(X)
+    # sum_y = sum(y)
+    # sum_x2 = sum(x2)
+    # sum_xy = sum(xy)
