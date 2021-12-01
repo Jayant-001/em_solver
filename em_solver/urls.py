@@ -28,8 +28,8 @@ urlpatterns = [
     path('dstl', views.dstl, name='dstl'),
     path('test', views.test),
     path('inp', view_mh.fetchfunc),
-    path('try',view_mh.testf),
-    # path('solution/',view_mh.solution, name='solution'),
+    # path('try',view_mh.testf),
+    # path('solution',view_mh.solution, name='solution'),
 
 
 ]

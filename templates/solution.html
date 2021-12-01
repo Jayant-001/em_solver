@@ -16,13 +16,6 @@
 
     <h3>Solution</h3>
     <table border="1" id="table">
-        <tr>
-            <th>X</th>
-            <th>Y</th>
-            <th>X<sup>2</sup></th>
-            <th>XY</th>
-        </tr>
-
         {% for s in tab %}
         <tr>
             {% for k in s %}
@@ -32,9 +25,10 @@
         {% endfor %}
     </table>
     <br>
-    <h2>{{value_of_a}}</h2>
-    <h2>{{value_of_b}}</h2>
-    <h2>y = {{value_of_a}}x + {{value_of_b}} </h2>
+    <h3>{{value_of_a}}</h3>
+    <h3>{{value_of_b}}</h3>
+    <h3>{{value_of_c}}</h3>
+    <h3>{{eqn}} </h3>
 </body>
 
 </html>

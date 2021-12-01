@@ -7,13 +7,12 @@ from engg_maths.models import MathData
 
 # Create your views here.
 
-contest={}
-
 def fetchfunc(request):
     h = request.POST['xname']
     k = request.POST['yname']
     ch = request.POST['inputData']
     print(ch)
+    context=dict()
     x_lst = list(map(float, h.split()))
     y_lst = list(map(float, k.split()))
     if(ch == "1"):
@@ -21,9 +20,8 @@ def fetchfunc(request):
         a, b = soln.keys()
         A = "{0:.4f}".format(soln[a])
         B = "{0:.4f}".format(soln[b])
-        context = {'value_of_a': A, 'value_of_b': B}
         print(A, B)
-        master_lst = []
+        master_lst = [['x','y','x2','xy'],]
         for i in range(len(x_lst)):
             lst = []
             lst.append(x_lst[i])
@@ -34,15 +32,19 @@ def fetchfunc(request):
         lst = [sum(x_lst), sum(y_lst), sum(x2_lst), sum(xy_lst)]
         master_lst.append(lst)
         context['tab'] = master_lst
+        context['eqn']="y = "+str(A)+ " + "+ str(B)+"x"
+        A="A : "+str(A)
+        B="B : "+str(B)
+        context['value_of_a']= A 
+        context['value_of_b']= B
     elif(ch == "2"):
         soln,x2_lst,x3_lst,x4_lst,xy_lst,x2y_lst= parabola(x_lst, y_lst)
         a, b, c = soln.keys()
         A = "{0:.4f}".format(soln[a])
         B = "{0:.4f}".format(soln[b])
         C = "{0:.4f}".format(soln[c])
-        context = {'value_of_a': ("A is", A), 'value_of_b': ("B is", B), 'value_of_c': ("C is", C)}
         print(A, B, C)
-        master_lst = []
+        master_lst = [['x','y','x2','x3','x4','xy','x2y'],]
         for i in range(len(x_lst)):
             lst = []
             lst.append(x_lst[i])
@@ -56,14 +58,21 @@ def fetchfunc(request):
         lst = [sum(x_lst), sum(y_lst),sum(x2_lst), sum(x3_lst),sum(x4_lst), sum(xy_lst),sum(x2y_lst)]
         master_lst.append(lst)
         context['tab'] = master_lst
+        context['eqn']="y= "+str(A)+" + "+str(B)+"x"+" + "+str(C)+"x2"
+        A="A : "+str(A)
+        B="B : "+str(B)
+        C="C : "+str(C)
+        context['value_of_a']= A 
+        context['value_of_b']= B
+        context['value_of_c']= C
     elif(ch=="3"):
         soln,Y_lst,x2_lst,xy_lst=exp(x_lst,y_lst)
+        print("Ylst",Y_lst)
         a, b = soln.keys()
         A = "{0:.4f}".format(soln[a])
         B = "{0:.4f}".format(soln[b])
-        context = {'value_of_a': A, 'value_of_b': B}
         print(A, B)
-        master_lst = []
+        master_lst = [['x','y','Y','x2','xY'],]
         for i in range(len(x_lst)):
             lst = []
             lst.append(x_lst[i])
@@ -75,7 +84,13 @@ def fetchfunc(request):
         lst = [sum(x_lst), sum(y_lst),sum(Y_lst), sum(x2_lst), sum(xy_lst)]
         master_lst.append(lst)
         context['tab'] = master_lst
+        context['eqn']="y= "+str(A)+"e"+str(B)
+        A="A : "+str(A)
+        B="B : "+str(B)
+        context['value_of_a']= A 
+        context['value_of_b']= B
     print(soln)
+    print(context.keys())
     return render(request, 'solution.html', context)
         # data = MathData.objects.all()
         # for d in data:
@@ -137,14 +152,15 @@ def parabola(X, Y):
 
 
 def exp(X,Y):
-    y=list(map(lambda h: log10(h),Y))
+    l=list(map(lambda h: log10(h),Y))
     x2 = list(map(lambda h: h ** 2, X))
     A = np.array(X, dtype=float)
-    B = np.array(y, dtype=float)
-    C = A*A
+    B = np.array(l, dtype=float)
+    print("B_______",B)
     xy = A*B
+    print("xy-------",xy)
     sum_x = sum(X)
-    sum_y = sum(y)
+    sum_y = sum(l)
     sum_x2 = sum(x2)
     sum_xy = sum(xy)
     n = len(X)
@@ -152,13 +168,13 @@ def exp(X,Y):
     eq1 = Eq(n*x + sum_x*y - sum_y)
     eq2 = Eq(sum_x*x + sum_x2*y - sum_xy)
     dic = solve((eq1, eq2), (x, y))
-    return dic, y,x2,xy;
+    return dic,l,x2,xy;
 
 def testf(request):
     if (request.method=="POST"):
-        xval=request.POST.get('xname')
-        yval=request.POST.get('yname')
-        eqval=request.POST.get('inputData')
+        xval=request.POST['xname']
+        yval=request.POST['yname']
+        eqval=request.POST['inputData']
         print(xval,yval,eqval)
         success="Successfull"
         return HttpResponse(success)
