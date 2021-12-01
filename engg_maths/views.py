@@ -18,6 +18,8 @@ import ast
 def fetchfunc(request):
     h = request.POST['xname']
     k = request.POST['yname']
+    selectedEqn = request.POST['inputData']
+    print(selectedEqn)
     x_lst = list(map(float, h.split()))
     y_lst = list(map(float, k.split()))
     ch = 1
