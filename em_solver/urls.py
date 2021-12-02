@@ -22,13 +22,14 @@ from . import views
 from engg_maths import views as view_mh
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('', views.home),
-    path('math/', views.math, name='math'),
-    path('dstl/', views.dstl, name='dstl'),
-    path('test/', views.test),
-    path('inp/', view_mh.fetchfunc),
-    # path('solution/',view_mh.solution, name='solution'),
+    path('math', views.math, name='math'),
+    path('dstl', views.dstl, name='dstl'),
+    path('test', views.test),
+    path('inp', view_mh.fetchfunc),
+    # path('try',view_mh.testf),
+    # path('solution',view_mh.solution, name='solution'),
 
 
 ]

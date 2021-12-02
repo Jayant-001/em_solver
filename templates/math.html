@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Solver</title>
 </head>
+
 <body>
-
-    <h2>Mapping the curve</h2>
+        <h1>MAPPING THE CURVE</h1>
+        <form id="post-form"> 
+            {% csrf_token %}
+            <label for="fname">Values of X: </label>
+            <input type="text" id="xname" placeholder="1 2 3 4 5" name="xname" /><br><br>
+            <label for="lname">Values of Y: </label>
+            <input type="text" id="yname" placeholder="1 2 3 4 5" name="yname" /><br><br>
     
-    <div id="input_form" >
-        
-    <form action="/inp/" method="post"> 
-        {% csrf_token %}
-        <label for="fname">Values of X: </label>
-        <input type="text" id="fname" placeholder="1 2 3 4 5" name="xname"><br><br>
-        <label for="lname">Values of Y: </label>
-        <input type="text" id="lname" placeholder="1 2 3 4 5" name="yname"><br><br>
-
-        <label for="inputData" class="form-label">Select Equation</label>
-        <select id="inputData" name="inputData" class="form-select">
-            <option selected>Choose Equation</option>
-            <option value="exponenetCurve">Exponentia Curve</option>
-            <option value="secondDegreeParabola">Second degree parabola</option>
-            <option value="straightLine">Straight Line</option>
-        </select>
-        <br>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
-
-    <div>
-            <a href="/solution"><h4>Solution</h4></a>
-    </div>
-
+            <label for="inputData" class="form-label">Select Equation</label>
+            <select id="inputData" name="inputData" class="form-select">
+                <option selected>Choose Equation</option>
+                <option value="1">Straight Line</option>
+                <option value="2">Second degree parabola</option>
+                <option value="3">Exponential Curve</option>
+            </select>
+            <br><br>
+            <input type="submit" value="Submit" />
+          </form>
+          <p></p>
 </body>
+<script type="text/javascript">
+    $(document).on('submit','#post-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'inp',
+            data:{
+                 xname:$('#xname').val(),
+                 yname:$('#yname').val(),
+                 inputData:$('#inputData').val(),
+                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success:function(data){
+                $('p').html(data);
+            }
+        });
+    });
+</script>
 </html>
