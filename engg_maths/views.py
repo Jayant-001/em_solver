@@ -11,8 +11,8 @@ def fetchfunc(request):
     h = request.POST['xname']
     k = request.POST['yname']
     ch = request.POST['inputData']
-    print(ch)
     context=dict()
+    context['ch']=int(ch)
     x_lst = list(map(float, h.split()))
     y_lst = list(map(float, k.split()))
     if(ch == "1"):
@@ -20,8 +20,7 @@ def fetchfunc(request):
         a, b = soln.keys()
         A = "{0:.4f}".format(soln[a])
         B = "{0:.4f}".format(soln[b])
-        print(A, B)
-        master_lst = [['x','y','x2','xy'],]
+        master_lst = []      #['x','y','x<sup>2</sup>','xy'],
         for i in range(len(x_lst)):
             lst = []
             lst.append(x_lst[i])
@@ -43,8 +42,7 @@ def fetchfunc(request):
         A = "{0:.4f}".format(soln[a])
         B = "{0:.4f}".format(soln[b])
         C = "{0:.4f}".format(soln[c])
-        print(A, B, C)
-        master_lst = [['x','y','x2','x3','x4','xy','x2y'],]
+        master_lst = []  #['x','y','x2','x3','x4','xy','x2y'],
         for i in range(len(x_lst)):
             lst = []
             lst.append(x_lst[i])
@@ -67,12 +65,10 @@ def fetchfunc(request):
         context['value_of_c']= C
     elif(ch=="3"):
         soln,Y_lst,x2_lst,xy_lst=exp(x_lst,y_lst)
-        print("Ylst",Y_lst)
         a, b = soln.keys()
         A = "{0:.4f}".format(soln[a])
         B = "{0:.4f}".format(soln[b])
-        print(A, B)
-        master_lst = [['x','y','Y','x2','xY'],]
+        master_lst = []  #['x','y','Y','x^2','xY']
         for i in range(len(x_lst)):
             lst = []
             lst.append(x_lst[i])
@@ -81,7 +77,7 @@ def fetchfunc(request):
             lst.append(x2_lst[i])
             lst.append(xy_lst[i])
             master_lst.append(lst)
-        lst = [sum(x_lst), sum(y_lst),sum(Y_lst), sum(x2_lst), sum(xy_lst)]
+        lst = [sum(x_lst), sum(y_lst),round(sum(Y_lst),4), sum(x2_lst), round(sum(xy_lst),4)]
         master_lst.append(lst)
         context['tab'] = master_lst
         context['eqn']="y= "+str(A)+"e"+str(B)
@@ -89,24 +85,8 @@ def fetchfunc(request):
         B="B : "+str(B)
         context['value_of_a']= A 
         context['value_of_b']= B
-    print(soln)
-    print(context.keys())
     return render(request, 'solution.html', context)
-        # data = MathData.objects.all()
-        # for d in data:
-        #     X=ast.literal_eval(d.x_list)
-        #     Y=ast.literal_eval(d.y_list)
-        #     X2=ast.literal_eval(d.x2_list)
-        #     XY=ast.literal_eval(d.xy_list)
-        #     # print(d.x_list)
-        #     # print(d.y_list)
-        #     # print(d.x2_list)
-        #     # print(d.xy_list)
-        #     print("-----------------------")
 
-        # math_data = MathData(x_list=x_lst, y_list=y_lst,
-        #                      x2_list=x2_lst, xy_list=xy_lst)
-        # math_data.save()
 
 
 def straight(X, Y):
@@ -153,12 +133,12 @@ def parabola(X, Y):
 
 def exp(X,Y):
     l=list(map(lambda h: log10(h),Y))
+    l=list(map(lambda h: round(h,4),l))
     x2 = list(map(lambda h: h ** 2, X))
     A = np.array(X, dtype=float)
     B = np.array(l, dtype=float)
-    print("B_______",B)
     xy = A*B
-    print("xy-------",xy)
+    xy=list(map(lambda h: round(h,4),xy))
     sum_x = sum(X)
     sum_y = sum(l)
     sum_x2 = sum(x2)
@@ -175,7 +155,6 @@ def testf(request):
         xval=request.POST['xname']
         yval=request.POST['yname']
         eqval=request.POST['inputData']
-        print(xval,yval,eqval)
         success="Successfull"
         return HttpResponse(success)
 # def testh(request):

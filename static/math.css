@@ -1,0 +1,28 @@
+h1{
+    color: red;
+}
+#mid{
+    margin: auto;
+    width: 50%;
+}
+#tdata{
+    font-size: 20px;
+}
+#sol{
+    font-size: 25px;
+}
+#ip{
+    font-size: 20px;
+}
+.my-listing td
+{
+    width: 10%;
+    height: 80%;
+}
+.my-listing th {
+      width: 10%;
+      height: 80%;
+ }
+/* .column-id {
+       width: 10%;
+ }  */

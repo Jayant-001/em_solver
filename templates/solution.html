@@ -9,26 +9,48 @@
 </head>
 
 <body>
-    <!-- <h1>Solution </h1>
-    <h2>{{value_of_a}}</h2>
-    <h2>{{value_of_b}}</h2>
-    <h2>{{value_of_c}}</h2> -->
-
-    <h3>Solution</h3>
-    <table border="1" id="table">
+<div></div>
+    <h1>Solution</h1>
+    <table border="1" id="table" class="my-listing">
+        {% if ch == 1 %}
+            <tr id="tdata">
+                <th >x</th>
+                <th>y</th>
+                <th>x<sup>2</sup></th>
+                <th>xy</th>
+            </tr>
+        {% elif ch == 2 %}
+        <tr>
+            <th>x</th>
+            <th>y</th>
+            <th>x<sup>2</sup></th>
+            <th>x<sup>3</sup></th>
+            <th>x<sup>4</sup></th>
+            <th>xy</th>
+            <th>x<sup>2</sup>y</th>
+        </tr>
+        {% elif ch == 3 %}
+        <tr>
+            <th>x</th>
+            <th>y</th>
+            <th>Y</th>
+            <th>x<sup>2</sup></th>
+            <th>xy</th>
+        </tr>
+        {% endif %}
         {% for s in tab %}
         <tr>
             {% for k in s %}
-            <th>{{k}}</th>
+            <td align="center" id="tdata">{{k}}</td>
             {% endfor %}
         </tr>
         {% endfor %}
     </table>
     <br>
-    <h3>{{value_of_a}}</h3>
-    <h3>{{value_of_b}}</h3>
-    <h3>{{value_of_c}}</h3>
-    <h3>{{eqn}} </h3>
+    <h3 id="sol">{{value_of_a}}</h3>
+    <h3 id="sol">{{value_of_b}}</h3>
+    <h3 id="sol">{{value_of_c}}</h3>
+    <h3 id="sol">{{eqn}} </h3>
 </body>
 
 </html>
