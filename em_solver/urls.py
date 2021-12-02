@@ -29,7 +29,6 @@ urlpatterns = [
     path('test', views.test),
     path('inp', view_mh.fetchfunc),
     # path('try',view_mh.testf),
-    # path('solution',view_mh.solution, name='solution'),
 
 
 ]
