@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
+    <link rel="stylesheet" href="{% static 'math.css' %}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -10,15 +11,16 @@
 </head>
 
 <body>
+    <div id="mid">
         <h1>MAPPING THE CURVE</h1>
         <form id="post-form"> 
             {% csrf_token %}
-            <label for="fname">Values of X: </label>
+            <label for="fname" id="ip">Values of X: </label>
             <input type="text" id="xname" placeholder="1 2 3 4 5" name="xname" /><br><br>
-            <label for="lname">Values of Y: </label>
+            <label for="lname" id="ip">Values of Y: </label>
             <input type="text" id="yname" placeholder="1 2 3 4 5" name="yname" /><br><br>
     
-            <label for="inputData" class="form-label">Select Equation</label>
+            <label for="inputData" class="form-label" id="ip">Select Equation</label>
             <select id="inputData" name="inputData" class="form-select">
                 <option selected>Choose Equation</option>
                 <option value="1">Straight Line</option>
@@ -29,6 +31,7 @@
             <input type="submit" value="Submit" />
           </form>
           <p></p>
+        </div>
 </body>
 <script type="text/javascript">
     $(document).on('submit','#post-form',function(e){
